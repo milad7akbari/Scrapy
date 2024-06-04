@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block main %}
+    <div class="container body_login_">
+        <div class="login-container">
+            <h1>Register</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="p-0 list-unstyled">
+                        {% for category, message in messages %}
+                            <li><p class="alert alert-{{ 'danger' if category == 'error' else '' }}">{{ message }}</p></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% if error %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endif %}
+            <form action="/register-user" method="post">
+                <div class="mb-3">
+                    <label for="firstname" class="form-label">firstname</label>
+                    <input type="text" class="form-control" id="firstname" value="{{ form_data.get('firstname', '') }}" name="firstname">
+                </div>
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">lastname</label>
+                    <input type="text" class="form-control" value="{{ form_data.get('lastname', '') }}" id="lastname" name="lastname">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">country</label>
+                    <select name="country_id">
+                        <option value="0">Choose</option>
+                        {% for country in countries %}
+                            <option {% if form_data.get('country_id') == country.id|string %}selected{% endif %} value="{{ country.id }}">{{ country.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">email</label>
+                    <input type="text" class="form-control" value="{{ form_data.get('email', '') }}" id="email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="mb-3">
+                    <label for="marital_status" class="form-label">What is your current marital status?</label>
+                    <select class="marital_status_inp" name="marital_status">
+                        <option value="">Select menu</option>
+                        <option value="1">Single</option>
+                        <option value="2">Married</option>
+                        <option value="3">Divorced</option>
+                        <option value="4">Other</option>
+                    </select>
+                </div>
+                <div class="mb-3 d-none">
+                    <label for="children" class="form-label">How many children do you have?</label>
+                    <select class="children_inp" name="children">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3 And Above</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+            <a href="/login-user" class="btn btn-link d-block text-center mt-3">Login</a>
+        </div>
+    </div>
+{% endblock %}
