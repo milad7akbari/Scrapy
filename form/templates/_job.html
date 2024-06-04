@@ -1,0 +1,15 @@
+<div data-filter-title="Job" class="row mySection d-none">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>What is your current job title or main skill?</h6>
+            <input type="text" value="{{ form_data.get('current_job', '') }}" class="form-control current_job_inp" name="current_job">
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>How many years of relevant experience do you have? (Years)</h6>
+            <input type="number" value="{{ form_data.get('relevant_experience', '') }}" class="form-control relevant_experience_inp" name="relevant_experience">
+        </div>
+    </div>
+</div>

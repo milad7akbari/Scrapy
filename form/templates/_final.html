@@ -1,0 +1,38 @@
+{% load humanize %}
+<div>
+    <h1 class="alert alert-success">Your score is: {{ score }}</h1>
+    <p class="h2 text-center">Here is our suggestion course for you.</p>
+    <table class="table table-group-divider table-hover">
+        <tr>
+            <th>#</th>
+            <th>university_name</th>
+            <th>city_name</th>
+            <th>course_title</th>
+            <th>english_requirement</th>
+            <th>duration</th>
+            <th>qualification_type</th>
+            <th>start_date</th>
+            <th>study_mode</th>
+            <th>international_fee</th>
+            <th>location</th>
+            <th>study_mode_desc</th>
+        </tr>
+        {% for item in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.university_name }}</td>
+                <td>{{ item.city_name }}</td>
+                <td>{{ item.course_title }}</td>
+                <td>{% if item.english_requirement == 0.0 %}No Data Available{% else %}
+                    {{ item.english_requirement }}{% endif %}</td>
+                <td>{{ item.duration }}</td>
+                <td>{{ item.qualification_type }}</td>
+                <td>{{ item.start_date }}</td>
+                <td>{{ item.study_mode }}</td>
+                <td>{{ item.international_fee|intcomma }}</td>
+                <td>{{ item.location }}</td>
+                <td>{{ item.study_mode_desc }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

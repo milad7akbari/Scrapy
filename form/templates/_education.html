@@ -1,0 +1,40 @@
+<div data-filter-title="Education" class="row mySection d-none">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>What is your current highest level of education or degree obtained?</h6>
+            <select class="form-select highest_level_inp"  name="highest_level">
+                <option {% if form_data.get('english_score') == "Master's" %} selected {% endif %} value="Master's">Master's</option>
+                <option {% if form_data.get('english_score') == "Bachelor's" %} selected {% endif %} value="Bachelor's">Bachelor's</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>What specific field or subject are you interested in studying?</h6>
+            <input type="text" value="{{ form_data.get('interested_field', '') }}" class="form-control interested_field_inp" name="interested_field">
+        </div>
+    </div>
+     <div class="col-md-6">
+        <div class="mb-3">
+            <h6>How would you rate your English language skills?</h6>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <input value="{{ form_data.get('english_certificate', '') }}" type="hidden" name="english_certificate" class="english_certificate_inp">
+                    <button class="btn btn-outline-secondary btnToggleDropdownMenu dropdown-toggle border-end-0 h-100" style="border-radius: 5px 0 0 5px;" type="button">{{ form_data.get('english_score', 'Choose') }}</button>
+                    <div class="englishLanguageMenu position-absolute d-none" style="box-shadow: 1px 2px 3px 0px #ccc;background: #fff; z-index: 5; min-width: 150px; padding: 10px 5px; border-radius: 5px;">
+                        <b data-lang-eng="IELTS" class="dropdown-item py-2 px-3">IELTS</b>
+                        <div role="separator" class="m-2" style="border-top: 1px solid #eee;"></div>
+                        <b data-lang-eng="TOEFL" class="dropdown-item py-1 px-3">TOEFL</b>
+                    </div>
+                </div>
+            <input type="text" class="form-control english_score"  value="{{ form_data.get('english_score', '') }}" placeholder="e.g., IELTS: 7, TOEFL: 70" name="english_score">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>In what year did you graduate from your highest level of education?</h6>
+            <input type="number" value="{{ form_data.get('year_highest_level', '') }}" class="form-control year_highest_level_inp" placeholder="e.g., 2010" name="year_highest_level">
+        </div>
+    </div>
+</div>
