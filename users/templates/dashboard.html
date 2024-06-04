@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block main %}
+    <div class="container body_login_">
+        <div class="login-container">
+            <h1>Dashboard</h1>
+            This is your dashboard: {{ user.firstname }} {{ user.lastname }}
+        </div>
+    </div>
+{% endblock %}
