@@ -1,0 +1,61 @@
+* {
+    font-family: "Roboto" !important;
+}
+body {
+    background: #eee
+}
+.body_login_ {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 400px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+        }
+#regForm {
+    background-color: #ffffff;
+    margin: 0px auto;
+    padding: 40px;
+    border-radius: 10px
+}
+#stepName{
+  color: #6A1B9A;
+}
+h1 {
+    text-align: center
+}
+input {
+    padding: 10px !important;
+}
+input.invalid {
+    border:1px solid #e03a0666;
+}
+#progressBarContainer {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#progressBar {
+    width: 0;
+    height: 20px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    border-radius: 8px 0 0 8px; /* Rounded corners on the left side */
+}

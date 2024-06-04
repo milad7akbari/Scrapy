@@ -1,0 +1,26 @@
+<div data-filter-title="Investment" class="row mySection d-none">
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>What is your budget for tuition fees?</h6>
+            <input type="number" class="form-control tuition_fees_inp" value="{{ form_data.get('tuition_fees', '') }}" placeholder="" name="tuition_fees">
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>Do you prefer to study in a urban area?</h6>
+            <select class="form-select urban_flag_inp" name="urban_flag">
+                <option {% if form_data.get('urban_flag') == 'Yes' %} selected {% endif %} value="Yes">Yes</option>
+                <option {% if form_data.get('urban_flag') == 'No' %} selected {% endif %} value="No">No, I prefer to study in Rural</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h6>When are you planning to start your studies and move to the UK?</h6>
+            <input type="date" class="form-control expected_move_date_inp" value="{{ form_data.get('expected_move_date', '') }}" name="expected_move_date">
+        </div>
+    </div>
+</div>
