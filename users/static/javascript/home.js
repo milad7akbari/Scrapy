@@ -7,4 +7,12 @@ $(document).ready(function () {
             childContainer.addClass('d-none');
         }
     });
+    $('.tab_link .nav-item a').on('click', function(e) {
+        e.preventDefault();
+        const $id = $(this).attr('id').replace('-tab', '');
+        $('.tab_link .nav-item a').removeClass('active');
+        $(this).addClass('active');
+        $('.profile-tab').addClass('d-none').removeClass('d-block');
+        $('#' + $id).removeClass('d-none');
+    });
 });

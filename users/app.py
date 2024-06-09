@@ -9,7 +9,11 @@ from . import users_bp, db, jwt
 load_dotenv()
 
 def create_app():
+    os.environ['FLASK_APP'] = 'app.py'
+    os.environ['FLASK_ENV'] = 'development'
+
     app = Flask(__name__)
+
 
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=24)

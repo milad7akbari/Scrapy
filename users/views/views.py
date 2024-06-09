@@ -4,7 +4,7 @@ from flask_jwt_extended import create_access_token, set_access_cookies
 from flask_restx import Namespace, Resource
 from sqlalchemy.orm import joinedload
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import requests
 from users.utils.utils import showError
 from users import users_bp, db
 from users.models.models import User, Countries, Children
@@ -12,9 +12,6 @@ from users.utils.utils import get_token_or_login, get_user_or_login
 
 users_ns = Namespace('Login', description='Users Data')
 load_dotenv()
-
-
-
 
 @users_ns.route('/user')
 class Users(Resource):
@@ -45,10 +42,29 @@ def login():
 @users_bp.route('/dashboard', methods=['GET'])
 @get_user_or_login
 def dashboard(user_id):
-    user = User.query.options(joinedload(User.group)).get(user_id)
-    context = {
-        'user': user
+    context = {}
+    try:
+        user = User.query.options(joinedload(User.group), joinedload(User.user_children), joinedload(User.country)).get(user_id)
+        if user is None:
+            raise ValueError("User not found")
+    except Exception as e:
+        raise ValueError("User not found")
+    context['user'] = user
+    context['details'] = None
+    context['education'] = None
+    cookies = {
+        'ACCESS_TOKEN': request.cookies.get('ACCESS_TOKEN'),
+        'csrf_access_token': request.cookies.get('csrf_access_token'),
     }
+
+    response = requests.get("http://127.0.0.1:5001/user/info/", cookies=cookies)
+    if response.status_code == 200:
+        response_data = response.json()
+        if response_data['status'] == 'success':
+            context['details'] = response_data['details']
+            context['education'] = response_data['education']
+
+
     template_name = 'dashboard.html' if user.group.name == 'Users' else 'admin.html'
     return render_template(template_name, **context)
 

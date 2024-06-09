@@ -1,9 +1,165 @@
 {% extends 'base.html' %}
 {% block main %}
-    <div class="container body_login_">
-        <div class="login-container">
-            <h1>Dashboard</h1>
-            This is your dashboard: {{ user.firstname }} {{ user.lastname }}
-        </div>
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="{{ url_for('users.static', filename='media/icons/logo.png') }}"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head tab_link">
+                        <h5>
+                            {{ user.firstname|upper }} {{ user.lastname|upper }} <small>Pending</small>
+                        </h5>
+                        <h6>
+                            {{ user.birthday or 'Undefined' }}
+                        </h6>
+                        <p class="proile-rating">{{ user.email }}</p>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            {% if education %}
+                                <li class="nav-item active mx-2"><a class="nav-link active" id="education-tab">Education</a></li>
+                            {% endif %}
+                            {% if details %}
+                                <li class="nav-item mx-2"><a class="nav-link" id="details-tab">Details</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a href="#" class="text-warning text-decoration-none fw-bolder ">Coming Soon...</a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="profile-work">
+                        <h5>{{ user.firstname|upper }} {{ user.lastname|upper }}</h5>
+                        <h6>{{ user.email|upper }}</h6>
+                        <h6>{{ user.birthday or 'Undefined' }}</h6>
+                        <h6>{{ user.country.name }}</h6>
+                        <h6>{{ 'Married' if user.married == 1 else 'Single' }}</h6>
+                        <h6>Group {{ user.group.name|upper }}</h6>
+                        {% if user.married == 1 %}
+                            <h6>Children {{ user.user_children[0].count }}</h6>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    {% if education %}
+                        <div class="tab-content profile-tab" id="education">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>USER ID</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ user.id[-10:] }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Highest Level</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ education.highest_level }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Interested Field</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ education.interested_field }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>English Certificate</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ education.english_certificate }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>English Score</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ education.english_score }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Year Highest Level</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ education.year_highest_level }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% endif %}
+
+                    {% if details %}
+
+                        <div class="tab-content profile-tab d-none" id="details">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Current Job</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ details.current_job }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Tuition Fees</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ details.tuition_fees }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Relevant Experience Years</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ details.relevant_experience_years }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Urban Flag</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{ details.urban_flag }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% endif %}
+
+                </div>
+            </div>
+        </form>
     </div>
+
 {% endblock %}
