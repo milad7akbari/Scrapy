@@ -39,16 +39,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control"  value="{{ form_data.get('password', '') }}" id="password" name="password">
                 </div>
                 <div class="mb-3">
                     <label for="marital_status" class="form-label">What is your current marital status?</label>
                     <select class="marital_status_inp" name="marital_status">
-                        <option value="">Select menu</option>
-                        <option value="1">Single</option>
-                        <option value="2">Married</option>
-                        <option value="3">Divorced</option>
-                        <option value="4">Other</option>
+                        <option {% if form_data.get('marital_status') == '' %}selected{% endif %} value="">Select menu</option>
+                        <option {% if form_data.get('marital_status') == '1' %}selected{% endif %} value="1">Single</option>
+                        <option {% if form_data.get('marital_status') == '2' %}selected{% endif %} value="2">Married</option>
+                        <option {% if form_data.get('marital_status') == '3' %}selected{% endif %} value="3">Divorced</option>
+                        <option {% if form_data.get('marital_status') == '4' %}selected{% endif %} value="4">Other</option>
                     </select>
                 </div>
                 <div class="mb-3 d-none">

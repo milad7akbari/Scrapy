@@ -86,9 +86,9 @@ def register():
             return showError("Country does not exist.")
         if lastname is None:
             return showError('Last Name cannot be empty.')
-        if password is None:
+        if len(password) <= 3:
             return showError('Password cannot be empty.')
-        if marital_status is None:
+        if marital_status is None or marital_status not in ['0', '1', '2', '3']:
             return showError('Marital status cannot be empty.')
         elif marital_status == '2' and children not in ['0', '1', '2', '3']: # Married
             return showError('Children must be defined.')
