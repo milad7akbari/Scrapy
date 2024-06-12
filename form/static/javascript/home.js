@@ -33,6 +33,7 @@ $(document).ready(function () {
         updateProgress($currentIndex);
 
     });
+
     function validationInvestmentForm(){
         var living_budget = $(".living_budget_inp").val();
         if (living_budget.trim() === "") {

@@ -9,15 +9,18 @@ from . import form_bp, jwt, db
 
 load_dotenv()
 def create_app():
+    os.environ['FLASK_APP'] = 'app.py'
+    os.environ['FLASK_ENV'] = 'development'
+
     app = Flask(__name__)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
     app.config['JWT_ACCESS_COOKIE_NAME'] = 'ACCESS_TOKEN'
-    app.config['JWT_CSRF_REQUEST_METHODS'] = ['POST', 'PUT', 'PATCH', 'DELETE']
     app.config['JWT_COOKIE_CSRF_PROTECT'] = True
     app.config['JWT_CSRF_CHECK_FORM'] = True
     jwt.init_app(app)
     db.init_app(app)
+    from form.views.views import home
     app.register_blueprint(form_bp, url_prefix='/')
 
     Migrate(app, db)

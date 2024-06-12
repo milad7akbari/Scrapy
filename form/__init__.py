@@ -1,9 +1,9 @@
 from flask import Blueprint
 from flask_jwt_extended import JWTManager
-from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from sqlalchemy import MetaData
+
 
 metadata = MetaData(
   naming_convention={
@@ -18,22 +18,15 @@ db = SQLAlchemy(metadata=metadata)
 jwt = JWTManager()
 csrf = CSRFProtect()
 
-form_bp = Blueprint(
+form_bp: Blueprint = Blueprint(
     'form',
     __name__,
     template_folder='templates',
     static_folder='static/',
     static_url_path='/static/form'
 )
+from form.namespace import api
 
-api = Api(
-    form_bp,
-    title='Users',
-    version='1.0',
-    doc='/doc',
-    description='Desc'
-)
 
-from form.views.views import data_ns
 
-api.add_namespace(data_ns, path='data/get')
+

@@ -1,39 +1,13 @@
 from datetime import datetime
 
-from flask import render_template, redirect, request, make_response, jsonify, session
-from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
-from flask_jwt_extended.exceptions import NoAuthorizationError
-from flask_restx import Namespace
+from flask import render_template, redirect, request, session
 
 from form.models.models import UserEducation, ApplicantDetails
 from form import form_bp, db
-from form.utils.utils import validate_request, showError
-data_ns = Namespace('Data', description='Get Data')
-
-def checkJWT():
-    try:
-        verify_jwt_in_request(locations=['cookies'])
-    except NoAuthorizationError:
-        resp = make_response(redirect('http://127.0.0.1:5000/login-user'))
-        resp.set_cookie('ACCESS_TOKEN', '', expires=0)
-        resp.set_cookie('csrf_access_token', '', expires=0)
-        return resp, 400
-    token = request.cookies.get('ACCESS_TOKEN', None)
-    csrf_token = request.cookies.get('csrf_access_token')
-    if not token or not csrf_token:
-        return redirect('http://127.0.0.1:5000/login-user'), 400
-    return get_jwt_identity(), 200
+from form.utils.utils import validate_request, showError, checkJWT, getUserData
 
 
-def getUserData(user_id):
-    count = UserEducation.query.filter_by(user_id=user_id).count()
-    if count > 0:
-        return redirect('http://127.0.0.1:5000/dashboard'), 305
-    return count, 200
-
-
-
-@form_bp.route('home', methods=['GET', 'POST'])
+@form_bp.route('/home', methods=['GET', 'POST'])
 def home():
     checkJWT_ = checkJWT()
     if checkJWT_[1] == 400:

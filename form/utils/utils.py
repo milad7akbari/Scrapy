@@ -4,29 +4,33 @@ from functools import wraps
 
 import jwt
 from dotenv import load_dotenv
-from flask import request, redirect, jsonify, url_for, flash
 
+from form.models.models import UserEducation
+from flask import redirect, request, make_response, url_for, flash
+from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
+from flask_jwt_extended.exceptions import NoAuthorizationError
 load_dotenv()
 
-# def token_required(f):
-#     @wraps(f)
-#     def decorated(*args, **kwargs):
-#         print(request.headers)
-#         # if 'Authorization' in request.headers:
-#         #     token = request.headers['Authorization'].split()[1]
-#
-#         if not token:
-#             return redirect('http://127.0.0.1:5000/login')
-#
-#         try:
-#             data = jwt.decode(token, os.getenv('SECRET_KEY'), algorithms=['HS256'])
-#             current_user = data['user_id']
-#         except:
-#             return redirect('http://127.0.0.1:5000/login')
-#
-#         return f(current_user, *args, **kwargs)
-#
-#     return decorated
+def checkJWT():
+    try:
+        verify_jwt_in_request(locations=['cookies'])
+    except NoAuthorizationError:
+        resp = make_response(redirect('http://127.0.0.1:5000/login-user'))
+        resp.set_cookie('ACCESS_TOKEN', '', expires=0)
+        resp.set_cookie('csrf_access_token', '', expires=0)
+        return resp, 400
+    token = request.cookies.get('ACCESS_TOKEN', None)
+    csrf_token = request.cookies.get('csrf_access_token')
+    if not token or not csrf_token:
+        return redirect('http://127.0.0.1:5000/login-user'), 400
+    return get_jwt_identity(), 200
+
+
+def getUserData(user_id):
+    count = UserEducation.query.filter_by(user_id=user_id).count()
+    if count > 0:
+        return redirect('http://127.0.0.1:5000/dashboard'), 305
+    return count, 200
 
 
 def showError(msg):
