@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h6>Customers service token: Get it and use to get customers</h6>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="p-0 list-unstyled">
+                {% for category, message in messages %}
+                    <li><p class="alert alert-{{ 'danger' if category == 'error' else 'success' }}">{{ message }}</p></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" >
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" >
+        </div>
+        <a class="my-4 d-block" href="/refresh-token-user">Refresh Token</a>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+
+    </form>
+{% endblock %}

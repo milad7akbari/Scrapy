@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>Login Employee</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="p-0 list-unstyled">
+                {% for category, message in messages %}
+                    <li><p class="alert alert-{{ 'danger' if category == 'error' else 'success' }}">{{ message }}</p></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    {% if error %}
+    <p class="alert alert-danger">{{ error }}</p>
+    {% endif %}
+    <form action="/login-employee" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">email</label>
+            <input type="text" class="form-control" id="email" name="email" >
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" >
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">
+                <input type="checkbox" name="remember_me" > Remember Me
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+{% endblock %}

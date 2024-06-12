@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/home.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet/home.css') }}">
+</head>
+<body>
+<div class="container body__">
+        <div class="container__">
+        <h1>ADMIN</h1>
+    <ul class="list-unstyled d-flex justify-content-center">
+        <li class="mx-2"><a href="/user-register">Users Register</a></li>
+        <li class="mx-2"><a href="/users-form">Users Info</a></li>
+        <li class="mx-2"><a href="/dashboard">Dashboard</a></li>
+        <li class="mx-2"><a href="/get-token-user">Get Token (S-Customers)</a></li>
+        <li class="mx-2"><a href="/logout">Logout</a></li>
+    </ul>
+{% block main %}
+{% endblock %}
+        </div>
+</div>
+
+
+</body>
+</html>
